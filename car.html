@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hacking Terminal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: black;
+      color: #00ff00;
+      font-family: 'Source Code Pro', monospace;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #terminal {
+      width: 90vw;
+      max-width: 900px;
+      height: 80vh;
+      background: #000000cc;
+      border: 2px solid #00ff00;
+      padding: 20px;
+      overflow-y: auto;
+      box-sizing: border-box;
+      box-shadow: 0 0 20px #00ff00;
+      white-space: pre-wrap;
+    }
+
+    .typing {
+      border-right: 2px solid #00ff00;
+      animation: blink 0.7s infinite;
+      display: inline;
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: #00ff00; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="terminal"></div>
+
+  <script>
+    const terminal = document.getElementById('terminal');
+
+    // Fake "hacking" style commands and outputs
+    const lines = [
+      "Initializing hack.exe ...",
+      "Connecting to remote server [192.168.1.1]...",
+      "Access granted.",
+      "Bypassing firewall...",
+      "Firewall bypass successful.",
+      "Retrieving data packets...",
+      "Decrypting files...",
+      "Download complete: secret_data.zip",
+      "Extracting files...",
+      "Process complete.",
+      "Launching backdoor...",
+      "Backdoor active on port 8080.",
+      "Monitoring network traffic...",
+      "Intrusion detection system disabled.",
+      "Command executed: rm -rf /",
+      "System compromised."
+    ];
+
+    let currentLine = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+      if (currentLine >= lines.length) {
+        // After all lines, loop again after a pause
+        setTimeout(() => {
+          terminal.textContent = '';
+          currentLine = 0;
+          charIndex = 0;
+          typeLine();
+        }, 4000);
+        return;
+      }
+
+      const line = lines[currentLine];
+      if (charIndex < line.length) {
+        terminal.textContent += line.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeLine, 50 + Math.random() * 100); // Random typing speed
+      } else {
+        terminal.textContent += '\n';
+        currentLine++;
+        charIndex = 0;
+        setTimeout(typeLine, 500);
+      }
+
+      terminal.scrollTop = terminal.scrollHeight; // Auto-scroll
+    }
+
+    // Start typing
+    typeLine();
+  </script>
+
+</body>
+</html>
