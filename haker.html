@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Power Plant Simulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding-top: 40px;
+    }
+
+    .container {
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      margin: auto;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .stat {
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border: none;
+      background: #0f0;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:disabled {
+      background: #666;
+      cursor: not-allowed;
+    }
+
+    #status {
+      margin-top: 20px;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Power Plant Simulator</h1>
+    <div class="stat">⚡ Power Output: <span id="output">1</span></div>
+    <div class="stat">🔥 Temperature: <span id="temp">20</span>°C</div>
+    <div class="stat">⛽ Fuel: <span id="fuel">100</span>%</div>
+    <button onclick="increaseOutput()">Increase Output</button>
+    <button onclick="decreaseOutput()">Decrease Output</button>
+    <div id="status">System Stable</div>
+  </div>
+
+  <script>
+    let output = 1;
+    let temp = 20;
+    let fuel = 100;
+    let gameRunning = true;
+
+    const outputEl = document.getElementById("output");
+    const tempEl = document.getElementById("temp");
+    const fuelEl = document.getElementById("fuel");
+    const statusEl = document.getElementById("status");
+
+    function updateDisplay() {
+      outputEl.textContent = output;
+      tempEl.textContent = temp.toFixed(1);
+      fuelEl.textContent = fuel.toFixed(1);
+
+      if (temp > 100) {
+        statusEl.textContent = "🔥 OVERHEAT! SYSTEM SHUTDOWN";
+        endGame();
+      } else if (fuel <= 0) {
+        statusEl.textContent = "⛽ OUT OF FUEL! SYSTEM SHUTDOWN";
+        endGame();
+      } else {
+        statusEl.textContent = "System Stable";
+      }
+    }
+
+    function increaseOutput() {
+      if (output < 10) output++;
+    }
+
+    function decreaseOutput() {
+      if (output > 1) output--;
+    }
+
+    function endGame() {
+      gameRunning = false;
+      document.querySelectorAll("button").forEach(btn => btn.disabled = true);
+    }
+
+    function simulate() {
+      if (!gameRunning) return;
+      temp += output * 0.5;
+      fuel -= output * 0.3;
+      temp -= 0.1; // passive cooling
+      updateDisplay();
+    }
+
+    setInterval(simulate, 500);
+    updateDisplay();
+  </script>
+</body>
+</html>
