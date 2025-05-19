@@ -52,7 +52,6 @@
   <script>
     const terminal = document.getElementById('terminal');
 
-    // Fake "hacking" style commands and outputs
     const lines = [
       "Initializing hack.exe ...",
       "Connecting to remote server [192.168.1.1]...",
@@ -77,13 +76,13 @@
 
     function typeLine() {
       if (currentLine >= lines.length) {
-        // After all lines, loop again after a pause
+        // Loop again after a short pause
         setTimeout(() => {
           terminal.textContent = '';
           currentLine = 0;
           charIndex = 0;
           typeLine();
-        }, 4000);
+        }, 1000);  // Faster restart delay
         return;
       }
 
@@ -91,18 +90,17 @@
       if (charIndex < line.length) {
         terminal.textContent += line.charAt(charIndex);
         charIndex++;
-        setTimeout(typeLine, 50 + Math.random() * 100); // Random typing speed
+        setTimeout(typeLine, 5);  // Super fast typing speed
       } else {
         terminal.textContent += '\n';
         currentLine++;
         charIndex = 0;
-        setTimeout(typeLine, 500);
+        setTimeout(typeLine, 100);  // Very short pause between lines
       }
 
       terminal.scrollTop = terminal.scrollHeight; // Auto-scroll
     }
 
-    // Start typing
     typeLine();
   </script>
 
