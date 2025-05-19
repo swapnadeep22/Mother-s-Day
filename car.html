@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hacking Terminal</title>
+  <title>Lord of Hacking Terminal</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 
@@ -22,25 +22,35 @@
       box-sizing: border-box;
     }
 
+    #danger-sign {
+      color: red;
+      font-size: 40px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+      animation: flash 1s infinite alternate;
+      user-select: none;
+    }
+
+    @keyframes flash {
+      0% { opacity: 1; text-shadow: 0 0 10px red; }
+      100% { opacity: 0.3; text-shadow: none; }
+    }
+
     #terminal {
       width: 100vw;
       max-width: 900px;
-      height: 80vh;
+      height: 75vh;
       background: #000000cc;
       border: 2px solid #00ff00;
       padding: 20px;
       overflow-y: auto;
       box-sizing: border-box;
-      box-shadow: 0 0 20px #00ff00;
+      box-shadow: 0 0 30px #00ff00;
       white-space: pre-wrap;
       font-size: 18px;
       line-height: 1.4;
-    }
-
-    .typing {
-      border-right: 2px solid #00ff00;
-      animation: blink 0.7s infinite;
-      display: inline;
+      user-select: none;
     }
 
     @keyframes blink {
@@ -48,40 +58,69 @@
       50% { border-color: #00ff00; }
     }
 
+    /* Blinking cursor style */
+    .typing {
+      border-right: 2px solid #00ff00;
+      animation: blink 0.7s infinite;
+      display: inline;
+    }
+
     /* Responsive font size for small screens */
     @media (max-width: 480px) {
       #terminal {
         font-size: 14px;
-        height: 90vh;
+        height: 85vh;
         padding: 10px;
+      }
+      #danger-sign {
+        font-size: 28px;
+        margin-bottom: 6px;
       }
     }
   </style>
 </head>
 <body>
 
+  <div id="danger-sign">⚠️ WARNING! SYSTEM WAS HACKED ⚠️</div>
   <div id="terminal"></div>
 
   <script>
     const terminal = document.getElementById('terminal');
 
     const lines = [
-      "Initializing hack.exe ...",
-      "Connecting to remote server [192.168.1.1]...",
-      "Access granted.",
-      "Bypassing firewall...",
-      "Firewall bypass successful.",
-      "Retrieving data packets...",
-      "Decrypting files...",
-      "Download complete: secret_data.zip",
-      "Extracting files...",
-      "Process complete.",
-      "Launching backdoor...",
-      "Backdoor active on port 8080.",
-      "Monitoring network traffic...",
-      "Intrusion detection system disabled.",
-      "Command executed: rm -rf /",
-      "System compromised."
+      ">>> Initiate protocol: SHADOWFANG...",
+      "Injecting payload: /usr/bin/black_ops",
+      "Override kernel security...",
+      "char rootkit[] = { 0x68, 0x61, 0x63, 0x6B };",
+      "memcpy(system_call, rootkit, sizeof(rootkit));",
+      "Executing silent backdoor exploit...",
+      "Launching infinite loop: while(true){hack();}",
+      "Encrypting data with AES-256...",
+      "Loading legendary algorithm: 'The One Ring Cipher'...",
+      "void hack_the_planet() {",
+      "  system(\"sudo rm -rf /\");",
+      "  fork(); fork(); fork();",
+      "}",
+      ">>> Deploying polymorphic shellcode...",
+      "Scanning network: 10.0.0.0/8",
+      "Payload injected: 'Frodo.exe' running stealth mode.",
+      "Tracing route through Mordor firewall...",
+      "Bypass successful: firewall is down.",
+      "Launching DDoS with orc army bots...",
+      "Command: ./ringmaster --bind 6667 --mode dark",
+      "System takeover complete.",
+      "You shall not pass!",
+      "------------------------------",
+      "// Lord of Hacking - Ultimate Script",
+      "#include <stdio.h>",
+      "int main() {",
+      "  printf(\"One Ring to rule them all...\\n\");",
+      "  printf(\"One Ring to find them...\\n\");",
+      "  printf(\"One Ring to bring them all and in the darkness bind them.\\n\");",
+      "  return 0;",
+      "}",
+      "System compromised. Exiting stealth mode...",
+      "Good luck."
     ];
 
     let currentLine = 0;
@@ -94,7 +133,7 @@
           currentLine = 0;
           charIndex = 0;
           typeLine();
-        }, 2000);  // shorter pause before looping
+        }, 3000);
         return;
       }
 
@@ -102,15 +141,15 @@
       if (charIndex < line.length) {
         terminal.textContent += line.charAt(charIndex);
         charIndex++;
-        setTimeout(typeLine, 10);  // super fast typing
+        setTimeout(typeLine, 10);
       } else {
         terminal.textContent += '\n';
         currentLine++;
         charIndex = 0;
-        setTimeout(typeLine, 100); // very short pause between lines
+        setTimeout(typeLine, 100);
       }
 
-      terminal.scrollTop = terminal.scrollHeight; // Auto-scroll
+      terminal.scrollTop = terminal.scrollHeight;
     }
 
     typeLine();
